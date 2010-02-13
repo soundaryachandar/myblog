@@ -13,6 +13,11 @@ class PostsController < ApplicationController
   
   def create
     @post = Post.new(params[:post])
-    @post.save
+    if @post.save
+      flash[:notice] = "Saved your post!"
+      redirect_to posts_path
+    else
+      flash[:error] = "Could not save the post!"
+    end
   end
 end

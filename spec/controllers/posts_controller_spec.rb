@@ -50,6 +50,11 @@ describe PostsController do
       do_post
       assigns[:post].errors.size.should_not == 0
     end
+    
+    it "should flash an error message" do
+      do_post
+      flash[:error].should_not be_nil
+    end
   end
     
 end
