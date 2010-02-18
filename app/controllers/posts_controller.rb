@@ -1,14 +1,32 @@
 class PostsController < ApplicationController
-
+ 
   def index
     @posts = Post.all
     respond_to do |format|
       format.html
     end
-  end
+   end
   
   def new
     @post = Post.new
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+  
+  def edit
+    @post = Post.find(params[:id])
+  end
+  
+  def update
+    @post = Post.find(params[:id])
+    if @post.update_attributes(params[:post])
+      flash[:notice] = "Successfully edited"
+      redirect_to @post
+    else
+      render :action => 'edit'
+    end
   end
   
   def create
@@ -16,8 +34,9 @@ class PostsController < ApplicationController
     if @post.save
       flash[:notice] = "Saved your post!"
       redirect_to posts_path
-    else
-      flash[:error] = "Could not save the post!"
-    end
+     else
+      flash[:notice] = "Post could not be saved"
+      redirect_to posts_path
+   end
   end
 end
