@@ -4,8 +4,7 @@ describe Post do
   before(:each) do
     @valid_attributes = {
       :title => 'a title',
-      :body => 'a body',
-      :author => 'an author'
+      :body => 'a body'
     }
   end
 
@@ -25,13 +24,6 @@ describe Post do
     @post = Post.new(@valid_attributes.merge({ :body => nil}))
     @post.save
     @post.errors.size.should_not == 0       
-  end
-  
-  it "should have an author" do
-    lambda do
-      @post = Post.new(@valid_attributes.merge({ :author => nil}))
-      @post.save
-    end.should_not change(Post, :count)
   end
   
   it "should allow the body to be changed" do

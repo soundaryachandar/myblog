@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
-  belongs_to :blogger
-  has_many:comments
+  has_many :comments
+  has_one :blogger
   validates_presence_of :title
   validates_presence_of :body
-end
+  end

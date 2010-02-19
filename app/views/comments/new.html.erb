@@ -4,20 +4,17 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label :author %><br />
+    <%= f.text_field :author %>
   </p>
   <p>
     <%= f.label :body %><br />
     <%= f.text_area :body %>
   </p>
-  <p>
-    <%= f.label :post %><br />
-    <%= f.text_field :post %>
-  </p>
+ 
   <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
 
-<%= link_to 'Back', comments_path %>
+<%= link_to 'Back', posts_path %>

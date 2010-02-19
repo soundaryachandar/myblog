@@ -2,13 +2,22 @@ require 'spec_helper'
 
 describe CommentsController do
   describe "POST /comments" do
- def do_post 
-   post :create, :comment => { :author => 'a author',:description => 'a desc' }
- end
- 
- it "should be success" do
-   do_post
-   flash[:notice].should_not be_nil
- end
-end
+    context "when params are valid" do
+     before do
+        @post = create_new_post
+   
+      end
+      def do_post
+        post :create, :post_id => @post.id, :comment => { :name => 'a author', :body => 'a desc' }
+      end
+      it "should redirect" do
+        do_post
+        response.should redirect_to(post_path(@post))
+      end
+      it "should flash a message" do
+        do_post
+        flash[:notice].should_not be_nil
+      end
+    end
+  end
 end
