@@ -62,7 +62,7 @@ describe "POST /posts" do
         post :create, :post => { :title => 'a title', :body => 'a body' }
       end
 
-       it "should flash an error message" do
+      it "should flash an error message" do
         do_post
         flash[:notice].should_not be_nil
         end
