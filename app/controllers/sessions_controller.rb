@@ -1,32 +1,31 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
+  # Be sure to include AuthenticationSystem in Application Controller instead
+  include AuthenticatedSystem
 
   # render new.rhtml
   def new
-   
   end
 
   def create
-    self.current_blogger = Blogger.authenticate(params[:login], params[:password])
+    self.current_user = User.authenticate(params[:login], params[:password])
     if logged_in?
       if params[:remember_me] == "1"
-        current_blogger.remember_me unless current_blogger.remember_token?
-        cookies[:auth_token] = { :value => self.current_blogger.remember_token , :expires => self.current_blogger.remember_token_expires_at }
+        current_user.remember_me unless current_user.remember_token?
+        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_to('/posts')
+      redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
     else
-      redirect_to('/login')
-    flash[:notice] = "Incorrect username/password"
-    
+      render :action => 'new'
     end
   end
 
   def destroy
-    self.current_blogger.forget_me if logged_in?
+    self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default('/home/hello')
+    redirect_back_or_default('/')
   end
 end

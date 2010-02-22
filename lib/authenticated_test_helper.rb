@@ -1,7 +1,7 @@
 module AuthenticatedTestHelper
-  # Sets the current blogger in the session from the blogger fixtures.
-  def login_as(blogger)
-    @request.session[:blogger_id] = blogger ? bloggers(blogger).id : nil
+  # Sets the current user in the session from the user fixtures.
+  def login_as(user)
+    @request.session[:user_id] = user ? users(user).id : nil
   end
 
   def authorize_as(user)
