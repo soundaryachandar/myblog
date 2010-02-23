@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Comment do
   before(:each) do
     @valid_attributes = {
-      :name => 'a author',
+     :author => 'xyz',
       :body => 'a body'
     }
   end
