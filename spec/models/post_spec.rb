@@ -33,4 +33,9 @@ describe Post do
       @post.save
     end.should change(@post, :body)
   end
+  
+  it "should have many comments" do 
+    @post = Post.create!(@valid_attributes)
+    @post.comments.should == []
+  end
 end
