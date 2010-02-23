@@ -16,10 +16,13 @@ describe CommentsController do
         do_post
         response.should redirect_to(post_path(@post))
       end
+      
       it "should flash a message" do
         do_post
         flash[:notice].should_not be_nil
       end
+      
+     
     end
   end
 end

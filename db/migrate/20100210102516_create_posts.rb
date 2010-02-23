@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text :title
       t.text :body
       t.string :author
+      t.integer :comment_id
       t.timestamps
     end
   end

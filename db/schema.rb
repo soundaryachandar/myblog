@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20100222153711) do
   create_table "comments", :force => true do |t|
     t.text     "author"
     t.text     "body"
+    t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20100222153711) do
     t.text     "title"
     t.text     "body"
     t.string   "author"
+    t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "blogger_id"
