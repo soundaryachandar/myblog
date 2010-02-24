@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Comment do
   def valid_attributes(extra = {}) {
       :author => 'XYZ',
-    :body => 'Some text',
-    :post_id => @post.id,
-     :created_at => '20100222153711',
+      :body => 'Some text',
+      :post_id => @post.id,
+      :created_at => '20100222153711',
       :updated_at => '20100222153711'
   }.merge(extra)
   end
@@ -20,7 +20,7 @@ describe Comment do
     @post = create_new_post
     @post.save!
     @comment = Comment.new
-  end
+end
 
   it "is invalid without a post" do
     set_comment_attributes(@comment, :post_id => nil)

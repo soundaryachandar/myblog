@@ -11,8 +11,12 @@ class CommentsController < ApplicationController
          flash[:notice] = "Comment NOT saved"
          redirect_to comments_path
        end
-    end
-  end
- end  
-end
+     else
+       redirect_to comments_path
+     end
+   end
+ end
+ end
+
+ 
 
