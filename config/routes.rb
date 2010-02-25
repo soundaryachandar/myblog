@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   
-map.resources :bloggers
+  map.resources :bloggers
   map.resource :session
   map.resources :posts, :has_many => :comments
   
