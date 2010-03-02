@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
+
   end
 
   def create
@@ -17,6 +18,7 @@ class SessionsController < ApplicationController
       redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
     else
+      flash[:error] = "Cannot log you in!"
       render :action => 'new'
     end
   end

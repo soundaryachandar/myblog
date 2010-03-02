@@ -9,8 +9,11 @@
 </head>
 <body>
 
-<p style="color: green"><%= flash[:notice] %></p>
+<%= link_to "Login", login_path %>&nbsp;<%= link_to 'Signup', signup_path %>
 
+
+<p style="color: green"><%= flash[:notice] %></p>
+<p style="color: red"><%= flash[:error] %></p>
 <%= yield %>
 
 </body>
