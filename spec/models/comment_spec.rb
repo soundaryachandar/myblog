@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Comment do
+<<<<<<< HEAD
   def valid_attributes(extra = {}) {
       :author => 'XYZ',
       :body => 'Some text',
@@ -22,31 +23,42 @@ describe Comment do
 
     @comment = Comment.new
 end
+=======
+
+  before(:each) do
+    @post = create_new_post    
+  end
+>>>>>>> 6927e0622ba4e59a5251a93303c37514b109a545
 
   it "is invalid without a post" do
     lambda{ create_comment({ :post_id => nil})}.should_not change(Comment, :count)    
   end
   
   it "is invalid with no body" do
-    set_comment_attributes(@comment, :body => nil)
-    @comment.should_not be_valid
-    @comment.errors.on(:body).should_not be_nil
+    lambda do
+    create_comment({ :body => nil})
+    end.should_not change(Comment, :count)
+  end
+  
+  it "should save a comment if the updated comment has no body" do
+    @comment = create_comment
+    lambda do
+      @comment.body = nil
+      @comment.save
+      @comment.reload
+    end.should_not change(@comment, :body)
   end
 
   it "is invalid with no author" do
-    set_comment_attributes(@comment, :author => nil)
-    @comment.should_not be_valid
-    @comment.errors.on(:author).should_not be_nil
+    lambda {create_comment({:author => nil})}.should_not change(Comment, :count)
   end
   
-  it "is valid with all attributes" do
-    set_comment_attributes(@comment)
-    @comment.should be_valid
+  it "should increase the count of comments when attributes are valid" do
+    lambda{ create_comment }.should change(Comment, :count)
   end
   
   it "should belong to a post" do
-    @valid_attributes = valid_attributes
-    @comment = Comment.create!(@valid_attributes)
+    @comment = create_comment
     @comment.post.should == @post
   end
   
@@ -56,7 +68,7 @@ end
     comment = Comment.new({ 
                             :author => 'XYZ',
                             :body => 'Some text',
-                            :post_id => 1,     
+                            :post_id => @post.id,     
                           }.merge(options))
     comment.save
     comment

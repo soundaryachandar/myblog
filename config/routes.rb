@@ -3,7 +3,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :session
 
+
   map.resources :ratings 
+
+  
+
   map.resources :bloggers
   map.resource :session
   map.resources :posts, :has_many => :comments

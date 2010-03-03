@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base 
  include AuthenticatedSystem
   
-  before_filter :authorize, :except => :login
+ 
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -15,15 +15,7 @@ class ApplicationController < ActionController::Base
 
   session :session_key => '_authenticator_session_id'
 
-protected 
-  def authorize
-    if (Blogger.find_by_id(session[:blogger_id]) ==  nil)
-      flash[:notice] = "Please Log In"
-      redirect_to '/login'
-    else
-      redirect_to '/posts'
-    end
-  end
+
 end
 
 
