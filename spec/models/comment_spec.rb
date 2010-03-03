@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Comment do
-<<<<<<< HEAD
+
   def valid_attributes(extra = {}) {
       :author => 'XYZ',
       :body => 'Some text',
@@ -23,12 +23,12 @@ describe Comment do
 
     @comment = Comment.new
 end
-=======
+
 
   before(:each) do
     @post = create_new_post    
   end
->>>>>>> 6927e0622ba4e59a5251a93303c37514b109a545
+
 
   it "is invalid without a post" do
     lambda{ create_comment({ :post_id => nil})}.should_not change(Comment, :count)    
