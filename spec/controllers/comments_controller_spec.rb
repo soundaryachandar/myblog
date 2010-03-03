@@ -11,7 +11,6 @@ describe CommentsController do
       def do_post
         post :create, :post_id => @post.id, :comment => { :author => 'xyz',:body => 'a desc' }
       end
-      
       it "should redirect" do
         do_post
         response.should redirect_to(post_path(@post))

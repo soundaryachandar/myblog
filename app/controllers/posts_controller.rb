@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
- 
+  
   def index
     @posts = Post.all
     respond_to do |format|
@@ -38,5 +38,10 @@ class PostsController < ApplicationController
       flash[:notice] = "Post could not be saved"
       redirect_to posts_path
    end
+  end
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to '/posts'
   end
 end
