@@ -3,7 +3,6 @@ class RatingsController < ApplicationController
     @rating = Rating.new(params[:rating])
     respond_to do |format|
      
-      puts @rating.post_id.to_s + "hello"
       if @rating.save
         @rating.reload
         @post = @rating.post

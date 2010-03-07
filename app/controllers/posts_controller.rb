@@ -30,13 +30,13 @@ class PostsController < ApplicationController
   end
   
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(params[:post]) 
     if @post.save
       flash[:notice] = "Saved your post!"
       redirect_to posts_path
      else
       flash[:notice] = "Post could not be saved"
-      redirect_to posts_path
+      render :action  => 'new'
    end
   end
   def destroy

@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe RatingsController do
-  
+  before do
+    @user = login_new_user
+  end
   describe "POST /ratings" do
     before do
       @post = create_new_post

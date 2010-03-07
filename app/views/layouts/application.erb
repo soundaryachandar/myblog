@@ -9,11 +9,13 @@
 </head>
 <body>
 
-
-
-
 <p style="color: green"><%= flash[:notice] %></p>
 <p style="color: red"><%= flash[:error] %></p>
+<h4><%= link_to 'Posts', posts_path %>
+<%= link_to 'Logout', logout_path %>
+<%= link_to 'Profile', profile_path %>
+</h4>
+  
 <%= yield %>
 
 </body>

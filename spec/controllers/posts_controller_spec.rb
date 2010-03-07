@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe PostsController do
+  before do 
+    @user = login_new_user
+  end
 
   describe "GET /index" do
     def do_get
@@ -71,18 +74,38 @@ describe "POST /posts" do
         do_post
         response.should_not be_nil
       end
+      
+      it "should add the new post to the main page" do
+        lambda do
+          do_post
+      end.should change(Post,:count).by(1)
+      
+  end 
 
     context "when params are invalid" do
         def do_post
-           post :create, :post => { :title => 'a title', :body => 'a body' }
-      end
-      end
-      
-      it "should flash an error message" do
-        do_post
-        flash[:notice].should_not be_nil
+          post :create, :post => { :title => nil, :body => nil }
         end
-      end
-    end
+        
+      
+        it "should flash an error message" do
+          do_post
+          flash[:notice].should_not be_nil
+        end
+      
+    
+        it "should render the 'new' template" do
+          do_post
+          response.should render_template('new')
+        end
+      
 
+        it "should not increase count of the post" do
+          lambda do 
+            do_post
+          end.should_not change(Post,:count)
+        end
+      end 
+    end
+  end 
 end

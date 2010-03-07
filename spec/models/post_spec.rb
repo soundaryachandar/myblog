@@ -11,6 +11,7 @@ describe Post do
     end.should change(Post, :count)
   end
   
+
   it "should have a title" do    
     lambda { create_post({ :title => nil})
     }.should_not change(Post, :count)

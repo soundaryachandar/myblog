@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe CommentsController do
+  before do 
+    @user = login_new_user
+  end
+
   describe "POST /comments" do
     before do
       @post = create_new_post
