@@ -214,23 +214,55 @@ describe UsersController do
 end
    
 describe "POST /update" do
+context "when params are valid" do
    before do
       @user = create_active_user
     end
 
-    def do_post
-      post :update, :id
+    def do_put
+      put :update,:id => @user.id,:user => {:name => 'name',:email => 'newemail@email.com' }
     end
 
-  it "should allow the user to change his/her login" do
+  it "should allow the user to change his/her name" do
     lambda do
-        @user.login == 'newlogin'
-        do_post
-        response.should be_success
+        do_put
+        response.should redirect_to(user_path(@user))
       end.should_not change(User,:count) 
   end
 
+    it "should redirect to the user_path" do
+      do_put
+      response.should redirect_to(user_path(@user))
+    end
+    
   end 
+  end
+context "when params are invalid" do
+  before do
+      @user = create_active_user
+    end
 
-end
+    def do_put
+      put :update,:id => @user.id,:user => {:name => 'nili',:email => nil }
+    end
+
+  it "should render the edit template and not save the changes" do
+    lambda do
+        do_put
+        response.should render_template("edit")
+      end.should_not change(User,:count) 
+  end
+
+    it "should have errors" do
+      do_put
+      assigns[:user].errors.on(:email).should_not be_nil
+    end
+
+    it "should flash an error message saying profile could not be updated" do
+      do_put
+      flash[:error].should_not be_nil
+    end
+  end     
+end 
+
 

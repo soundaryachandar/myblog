@@ -35,18 +35,24 @@ class UsersController < ApplicationController
     end
   end
 
-  def update
+
+  def show
     @user = User.find(params[:id])
-    @user.update_attributes
-    if @user.save
-      redirect_to profile_path
-      flash[:notice] = "Update Successful"
-    else
-      redirect_to profile_path
-      flash[:error] = "Profile could not be updated"
-    end
   end
 
+
+  def update
+    respond_to do |format|
+    @user = User.find(params[:id])
+      if @user.update_attributes(params[:user])
+        flash[:notice] = "Update Successful"
+        format.html { redirect_to @user }
+      else
+        flash[:error] = "Profile could not be updated"
+        format.html { redirect_to @user }.html {  render :action => "edit" }
+      end
+    end
+  end
   def activate
     logout_keeping_session!
     user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
