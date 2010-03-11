@@ -49,7 +49,7 @@ class UsersController < ApplicationController
         format.html { redirect_to @user }
       else
         flash[:error] = "Profile could not be updated"
-        format.html { redirect_to @user }.html {  render :action => "edit" }
+        format.html {  render :action => "edit" }
       end
     end
   end
