@@ -13,10 +13,10 @@ describe CommentsController do
       def do_post
         post :create, :post_id => @post.id, :comment => { :author => 'xyz',:body => 'a desc' }
       end
-      it "should redirect" do
+      it "should redirect to the post" do
         do_post        
         @comment = Comment.first
-        response.should redirect_to(post_comment_path(@post,@comment))
+        response.should redirect_to(post_path(@post))
       end
       
       it "should flash a message" do
