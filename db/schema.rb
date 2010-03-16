@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100306130542) do
+ActiveRecord::Schema.define(:version => 20100316072916) do
 
   create_table "bloggers", :force => true do |t|
     t.string   "login"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20100306130542) do
     t.datetime "activated_at"
     t.string   "state",                                    :default => "passive"
     t.datetime "deleted_at"
+    t.string   "password_reset_code",       :limit => 40
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

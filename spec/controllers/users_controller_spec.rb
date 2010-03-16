@@ -109,11 +109,11 @@ describe UsersController do
     end
     
     it "should route users's 'show' action correctly" do
-      route_for(:controller => 'users', :action => 'show', :id => '1').should == "/users/1"
+      route_for(:controller => 'users', :action => 'show').should == "/profile"
     end
     
     it "should route users's 'edit' action correctly" do
-      route_for(:controller => 'users', :action => 'edit', :id => '1').should == "/users/1/edit"
+      route_for(:controller => 'users', :action => 'edit') .should == "/profile/edit"
     end
     
     it "should route users's 'update' action correctly" do
@@ -236,7 +236,7 @@ context "when params are valid" do
     end
     
   end 
-  end
+end
 context "when params are invalid" do
   before do
       @user = create_active_user
@@ -263,6 +263,124 @@ context "when params are invalid" do
       flash[:error].should_not be_nil
     end
   end     
-end 
 
+  describe "GET /ForgotPassword" do
+
+    def do_get
+      get :forgot_password
+    end
+  
+    it "should render the forgot_password form" do
+      do_get
+      response.should be_success
+    end  
+  end
+  describe "POST /ForgotPassword" do 
+
+    context "when email is valid" do
+      before do
+        @user = create_active_user
+      end
+      def do_post
+        post :forgot_password,:user => { :email => @user.email}
+      end
+
+      it "should show a message saying a link was sent to the email specified" do
+        do_post
+        flash[:notice].should_not be_nil
+      end 
+      
+      it "should redirect to posts path" do
+        do_post
+        response.should redirect_to(posts_path)
+      end 
+    end
+    
+    context "when email is invalid" do
+      before do
+        @user = create_active_user
+      end
+      def do_post
+        post :forgot_password,:user => { :email => nil}
+      end
+      
+      it "should render forgot_password.erb" do
+        do_post
+        response.should render_template("forgot_password")
+      end 
+
+      it "should show a message it could not find the user with the correct email id" do
+        do_post
+        flash[:error].should_not be_nil
+      end 
+    end 
+  end
+
+  describe "GET /ResetPassword" do
+  
+    def do_get
+      get :reset_password
+    end
+  
+    it "should render the reset_password form" do
+      do_get
+      response.should render_template("reset_password")
+    end  
+  end
+  describe "POST /ResetPassword/:code" do
+    context "when activation code is valid" do
+      before do
+        @user = create_active_user
+        @user.forgot_password   #set the password_reset_code
+      end
+      def do_post
+        post :reset_password,:user => { :password => 'newpassword',:password_confirmation => 'newpassword'}, :password_reset_code => @user.password_reset_code
+      end
+
+      it "should should flash a successful notice" do
+        do_post
+        flash[:notice].should_not be_nil
+      end 
+
+      it "should change the password" do
+        old_password = @user.crypted_password
+        do_post
+        @user.reload
+        old_password.should != @user.crypted_password
+      end
+
+      it "should redirect to posts_path" do
+        do_post
+        response.should redirect_to(posts_path)
+      end 
+    end 
+    context "when password and password_confirmation does not match" do
+      before do
+        @user = create_active_user
+        @user.forgot_password   #set the password_reset_code
+      end
+      def do_post
+        post :reset_password,:user => { :password => 'rightpassword', :password_confirmation =>'wrongpassword'}, :password_reset_code => @user.password_reset_code
+      end
+      
+      it "should render the reset_password template" do
+        do_post
+        response.should render_template("reset_password")
+      end  
+      
+      it "should not change the password" do
+        old_password = @user.crypted_password
+        do_post
+        @user.reload
+        old_password.should == @user.crypted_password
+      end
+
+      
+      it "should show an error message saying password mismatch" do
+        do_post
+        flash[:error].should_not be_nil
+      end
+    end 
+  end
+end
 

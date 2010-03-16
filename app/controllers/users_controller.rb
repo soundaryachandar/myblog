@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
-  skip_before_filter :login_required, :only => [:new, :create, :activate,:edit,:update]
+  skip_before_filter :login_required, :only => [:new, :create, :activate,:edit,:update,:forgot_password,:reset_password]
 
   # render new.rhtml
   def new
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
     respond_to do |format|
       format.html
     end
@@ -37,7 +37,9 @@ class UsersController < ApplicationController
 
 
   def show
-    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
   end
 
 
@@ -94,17 +96,70 @@ class UsersController < ApplicationController
   # smart -- make sure you check that the visitor is authorized to do so, that they
   # supply their old password along with a new one to update it, etc.
 
+  def forgot_password
+    if request.get?
+      respond_to do |format|
+        format.html
+      end
+    else request.post?
+      respond_to do |format|
+        @user = User.find_by_email(params[:user][:email]) if params[:user]
+        if @user
+          @user.forgot_password
+          if @user.save
+            format.html { redirect_to posts_path }
+            flash[:notice] = "A password reset link has been sent to :#{params[:user][:email]}"
+          else
+            format.html
+            flash[:error] = "There was some error in processing your request"
+          end
+        else
+          format.html
+          flash[:error] = "Could not find a user with that email id!"
+        end
+      end
+    end
+  end
+
+
+  def reset_password
+    @user = User.find_by_password_reset_code(params[:code])
+    if request.get?
+      respond_to do |format|
+        format.html
+      end
+    else request.post?
+      respond_to do |format| 
+        if @user
+          if((params[:user][:password]) && (params[:user][:password_confirmation]))
+            self.current_user = @user
+            current_user.password = params[:user][:password]
+            current_user.password_confirmation = params[:user][:password_confirmation]
+            if current_user.save 
+              flash[:notice]= "Password reset successfully"
+              format.html { redirect_to posts_path }
+            else
+              format.html
+              flash[:error] = "Password Mismatch"
+            end
+          else
+            format.html
+            flash[:error] = "Dunno what to do!"
+          end
+        end
+      end
+    end
+  end
 protected
   def find_user
     @user = User.find(params[:id])
   end
   private
   def select_layout
-    if ['new'].include? action_name
+    if ['new', 'forgot_password', 'reset_password'].include? action_name
       'account'
     else
       'application'
     end
   end
 end
-

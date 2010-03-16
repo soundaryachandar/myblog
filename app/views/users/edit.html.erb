@@ -1,6 +1,6 @@
 <h1>Editing profile</h1>
 
-<% form_for(@user) do |f| %>
+<% form_for @user, users_path(@user), :method => :put do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -9,7 +9,7 @@
   </p>
   <p>
     <%= f.label :email %><br />
-    <%= f.text_area :email %>
+    <%= f.text_field :email %>
   </p>
   <p>
     <%= f.submit 'Update' %>

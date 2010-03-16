@@ -280,7 +280,31 @@ describe User do
       @user.should be_pending
     end
   end
- 
+
+  describe "forgot password" do
+    before do 
+      @user = create_user
+    end
+
+    it "should create password reset code" do 
+      @user.forgot_password
+      @user.save
+      @user.reload
+      @user.password_reset_code.should_not be_nil
+    end
+  end 
+  
+  describe "reset password" do
+    before do
+      @user = create_user
+    end
+    it "should set the password reset code to nil" do
+      @user.reset_password
+      @user.save
+      @user.reload
+      @user.password_reset_code.should be_nil
+    end 
+  end 
 protected
   def create_user(options = {})
     record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
