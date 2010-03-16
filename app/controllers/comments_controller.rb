@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
      @comment.post = @post     
      if @comment.save
        flash[:notice] = "Comment saved"
-       format.html { redirect_to post_comment_path(@post, @comment) }
+       format.html { redirect_to post_path(@post) }
      else
        flash[:notice] = "Comment NOT saved"
         format.html{ redirect_to post_path(@post)}
