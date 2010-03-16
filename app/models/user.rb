@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
   include Authorization::AasmRoles
+  
+  has_many :posts
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
