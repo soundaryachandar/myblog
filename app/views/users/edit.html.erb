@@ -7,6 +7,22 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
+
+  <p>
+    <%= label_tag :current_password,"Current Password" %><br />
+    <%= password_field_tag :current_password %>
+  </p>
+
+  <p>
+    <%= f.label :password,"New password" %><br />
+    <%= f.password_field :password %>
+  </p>
+
+  <p>
+    <%= f.label :password_confirmation,"New password confirmation" %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+
   <p>
     <%= f.label :email %><br />
     <%= f.text_field :email %>

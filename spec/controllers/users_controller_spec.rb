@@ -199,7 +199,7 @@ describe UsersController do
   
   describe "GET /users/1/edit" do
     before do
-      @user = create_active_user
+      @user = login_new_user
     end
     
     def do_get 
@@ -213,57 +213,86 @@ describe UsersController do
 
 end
    
-describe "POST /update" do
-context "when params are valid" do
-   before do
-      @user = create_active_user
+  describe "POST /update" do
+    before do
+      @user = login_new_user
     end
+    context "when params are valid" do
+   
+      def do_put
+        put :update,:id => @user.id,:user => {:name => 'name',:email => 'newemail@email.com'},:current_password => 'password', :password => 'newpassword', :password_confirmation => 'newpassword'
+      end
 
-    def do_put
-      put :update,:id => @user.id,:user => {:name => 'name',:email => 'newemail@email.com' }
-    end
+      it "should allow the user to change his/her name" do
+        lambda do
+          do_put
+          response.should redirect_to(user_path(@user))
+        end.should_not change(User,:count) 
+      end
 
-  it "should allow the user to change his/her name" do
-    lambda do
+      it "should redirect to the user_path" do
         do_put
         response.should redirect_to(user_path(@user))
-      end.should_not change(User,:count) 
-  end
+      end
 
-    it "should redirect to the user_path" do
-      do_put
-      response.should redirect_to(user_path(@user))
-    end
+      it "should compare the current password with the password being provided" do
+        old_password = @user.crypted_password  
+        do_put
+        @user.reload
+        old_password != @user.password
+      end       
+    end 
     
-  end 
-end
-context "when params are invalid" do
-  before do
-      @user = create_active_user
-    end
+    context "when user params are invalid but current paswword is coorect" do
+      def do_put
+        put :update, :user => {:name => 'nili',:email => nil }, :current_password => 'password', :password => '', :password_confirmation => ''
+      end
 
-    def do_put
-      put :update,:id => @user.id,:user => {:name => 'nili',:email => nil }
-    end
+      it "should render the edit template and not save the changes" do
+        lambda do
+          do_put
+          response.should render_template("edit")
+        end.should_not change(User,:count) 
+      end
 
-  it "should render the edit template and not save the changes" do
-    lambda do
+      it "should have errors" do
+        do_put
+        assigns[:user].errors.on(:email).should_not be_nil
+      end 
+
+      it "should flash an error message saying profile could not be updated" do
+        do_put
+        flash[:error].should_not be_nil
+      end
+    end  
+    
+    context "when current password is incorrect" do
+     
+      def do_put
+        put :update, :user => { :name => 'name', :email => 'someemail@gmail.com'},:current_password => ''
+      end
+
+      it "should flash an error asking the user to re-enter his/her password" do
+        do_put
+        flash[:error].should_not be_nil
+      end
+      
+      it "should render the edit template" do
         do_put
         response.should render_template("edit")
-      end.should_not change(User,:count) 
+      end 
+      
+      it "should not update the user's profile" do
+        lambda do
+        do_put
+        end.should_not change(@user,:name)
+      end 
+    end 
   end
 
-    it "should have errors" do
-      do_put
-      assigns[:user].errors.on(:email).should_not be_nil
-    end
-
-    it "should flash an error message saying profile could not be updated" do
-      do_put
-      flash[:error].should_not be_nil
-    end
-  end     
-
+   
+  
+  
   describe "GET /ForgotPassword" do
 
     def do_get
@@ -275,6 +304,7 @@ context "when params are invalid" do
       response.should be_success
     end  
   end
+  
   describe "POST /ForgotPassword" do 
 
     context "when email is valid" do
@@ -317,7 +347,7 @@ context "when params are invalid" do
   end
 
   describe "GET /ResetPassword" do
-  
+    
     def do_get
       get :reset_password
     end
@@ -327,6 +357,7 @@ context "when params are invalid" do
       response.should render_template("reset_password")
     end  
   end
+
   describe "POST /ResetPassword/:code" do
     context "when activation code is valid" do
       before do
@@ -354,6 +385,7 @@ context "when params are invalid" do
         response.should redirect_to(posts_path)
       end 
     end 
+    
     context "when password and password_confirmation does not match" do
       before do
         @user = create_active_user
@@ -383,4 +415,3 @@ context "when params are invalid" do
     end 
   end
 end
-

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
-  skip_before_filter :login_required, :only => [:new, :create, :activate,:edit,:update,:forgot_password,:reset_password]
+  skip_before_filter :login_required, :only => [:new, :create, :activate, :forgot_password,:reset_password]
 
   # render new.rhtml
   def new
@@ -45,15 +45,21 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-    @user = User.find(params[:id])
-      if @user.update_attributes(params[:user])
-        flash[:notice] = "Update Successful"
-        format.html { redirect_to @user }
+      @user = current_user
+      if @user && @user.authenticated?(params[:current_password])
+        
+        if @user.update_attributes(params[:user])
+          format.html { redirect_to @user }
+          flash[:notice] = "Update Successful"   
+        else
+          flash[:error] = "Profile could not be updated"
+          format.html {  render :action => "edit" }
+        end
       else
-        flash[:error] = "Profile could not be updated"
+        flash[:error] = "please re-enter your current password"
         format.html {  render :action => "edit" }
       end
-    end
+    end  
   end
   def activate
     logout_keeping_session!
