@@ -9,19 +9,26 @@
   <%=h @post.body %>
 </p>
 
-<h2>Comments</h2>
-
-<% @post.comments.each do |c| %>
+<div class = "comment_list">
+  <h2>Comments</h2>
+  
+  <% @post.comments.each do |c| %>
   <p>
-    <b><%=h c.name %> said:</b><br />
-    <%= time_ago_in_words(c.created_at) %> ago
+    <div class = "name">
+      <b><%=h c.name %> said:</b><br />
+      <div class = "time">
+	<%= time_ago_in_words(c.created_at) %> ago
+      </div>
+    </div>
   </p>
 
   <p>
-    <%=h c.body %>
+    <div class ="comment_body">
+      <%=h c.body %>
+    </div>
   </p>
-<% end %>
-
+  <% end %>
+</div>
 <% form_for [@post, Comment.new] do |f| %>
   <p>
 

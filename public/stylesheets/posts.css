@@ -1,0 +1,34 @@
+#heading {
+    font-size: 50px;
+    font-weight: bold;
+    color: red;
+    padding-top: 15px;
+}
+
+.posts_index {
+    padding-top: 20px;
+    font-size: 20px;
+}
+
+th.title{
+    padding-top : 10px;
+    padding-left: 20px;
+}
+
+th.body{
+    padding-top: 10px;
+    padding-left: 100px;
+}
+
+.id{
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.position_relative{
+    position: relative;
+}
+
+.position_absolute{
+    position: absolute;
+}

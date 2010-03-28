@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
    @post = Post.find(params[:post_id])
    respond_to do |format|
      format.html{ redirect_to post_path(@post)}
+     format.js { redirect_to post_path(@post)}
    end
  end
 end

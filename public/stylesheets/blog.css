@@ -1,0 +1,29 @@
+#link_nav{
+    background: yellow;
+    width:100%;
+    height:20px;
+}
+
+#main_links a{
+    text-decoration: none;    
+}
+
+#main_links a:hover{
+    background-color: white;
+    color: black;
+}
+
+#content{
+    background: #d0d0d0;
+}
+
+#main_link{
+    height:20px;
+}
+.position_relative{
+    position: relative;
+}
+.position_absolute{
+    position: absolute;
+    right:0;
+}

@@ -5,18 +5,27 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   
-  <%= stylesheet_link_tag 'scaffold' %>
+  
+  <%= stylesheet_link_tag 'blog' %>
+<%= stylesheet_link_tag 'posts' %>
+<%= stylesheet_link_tag 'scaffold' %>
+<%= javascript_include_tag  'jquery-1.4.2.min','application','posts' %>
 </head>
 <body>
 
 <p style="color: green"><%= flash[:notice] %></p>
 <p style="color: red"><%= flash[:error] %></p>
-<h4><%= link_to 'Posts', posts_path %>
-<%= link_to 'Logout', logout_path %>
-<%= link_to 'Profile', profile_path %>
-</h4>
-  
-<%= yield %>
-
+<div id="content">
+  <div id="link_nav" class="position_relative">  
+    <div id="main_links" class="position_absolute">
+      <div id="posts">
+      <%= link_to 'Posts', posts_path %>
+      </div>
+	<%= link_to 'Logout', logout_path %>
+	<%= link_to 'Profile', profile_path %>      
+    </div>
+  </div>
+  <%= yield %>
+</div>
 </body>
 </html>

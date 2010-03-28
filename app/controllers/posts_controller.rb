@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  
+  #layout nil, :only => ['show']
   def index
     @posts = current_user.posts
     respond_to do |format|
@@ -13,6 +13,11 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    respond_to do |format|
+   # render :layout => nil
+      format.js
+      format.html { redirect_to posts_path }
+    end
   end
   
   def edit

@@ -1,16 +1,18 @@
-<h1>Listing posts</h1>
+<div id="heading">
+     Listing posts
+</div>
 
-<table>
+<table class="posts_index">
   <tr>
-    <th>Title</th>
-    <th>Body</th>
+    <th class="title","position_relative">Title</th>
+    <th class="body","position_relative">Body</th>
   </tr>
 
 <% @posts.each do |post| %>
-  <tr>
+  <tr class="<%= post.id %>","position_absolute">
     <td><%=h post.title %></td>
     <td><%=h post.body %></td>
-    <td><%= link_to 'Show', post %></td>
+    <td><%= link_to 'Show', post, :class => "show_posts_link" %></td>
     <td><%= link_to 'Edit', edit_post_path(post) %></td>
     <td><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

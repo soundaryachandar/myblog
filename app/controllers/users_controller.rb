@@ -46,8 +46,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       @user = current_user
-      if @user && @user.authenticated?(params[:current_password])
-        
+      if @user && @user.authenticated?(params[:current_password])      # Authenticate user first with current password before editing profile
         if @user.update_attributes(params[:user])
           format.html { redirect_to @user }
           flash[:notice] = "Update Successful"   
