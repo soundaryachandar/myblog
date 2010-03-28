@@ -9,7 +9,7 @@
   <%= stylesheet_link_tag 'blog' %>
 <%= stylesheet_link_tag 'posts' %>
 <%= stylesheet_link_tag 'scaffold' %>
-<%= javascript_include_tag  'jquery-1.4.2.min','application','posts' %>
+<%= javascript_include_tag  'jquery-1.4.1.min','application','posts' %>
 </head>
 <body>
 
@@ -17,12 +17,10 @@
 <p style="color: red"><%= flash[:error] %></p>
 <div id="content">
   <div id="link_nav" class="position_relative">  
-    <div id="main_links" class="position_absolute">
-      <div id="posts">
-      <%= link_to 'Posts', posts_path %>
-      </div>
-	<%= link_to 'Logout', logout_path %>
-	<%= link_to 'Profile', profile_path %>      
+    <div id="main_links" class="position_absolute">    
+      <%= link_to 'Posts', posts_path %>      
+      <%= link_to 'Logout', logout_path %>
+      <%= link_to 'Profile', profile_path %>      
     </div>
   </div>
   <%= yield %>

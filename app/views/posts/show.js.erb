@@ -1,1 +1,3 @@
-jQuery("#posts").html("new");
+$(".post_index").html("");
+$("#post").html("<%= escape_javascript(render :partial =>
+'show') %>");

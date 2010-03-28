@@ -1,5 +1,5 @@
-class PostsController < ApplicationController
-  #layout nil, :only => ['show']
+class PostsController < ApplicationController  
+  
   def index
     @posts = current_user.posts
     respond_to do |format|
@@ -13,11 +13,11 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    respond_to do |format|
-   # render :layout => nil
-      format.js
-      format.html { redirect_to posts_path }
+    respond_to do |format|   
+      format.html
+      format.js{ render :nothing => false}
     end
+    
   end
   
   def edit
@@ -43,11 +43,12 @@ class PostsController < ApplicationController
      else
       flash[:notice] = "Post could not be saved"
       render :action  => 'new'
-   end
+    end
   end
+
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to '/posts'
-  end
+  end 
 end

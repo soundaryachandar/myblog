@@ -8,8 +8,10 @@
     });
     $(document).ready(function(){
 	$("a.show_posts_link").click(function(){
-	    $.get($(this).attr("href"),null,function(){alert("show");},"script");
+	    $.get($(this).attr("href"), null, null, "script");
 	    return false;   //avoids redirect
 	});
     });
 })(jQuery);
+
+
