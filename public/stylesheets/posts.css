@@ -1,34 +1,39 @@
 #heading {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     color: red;
     padding-top: 15px;
 }
 
-.posts_index {
-    padding-top: 20px;
+#post_title{
+    padding-top: 30px;
     font-size: 20px;
 }
 
-th.title{
-    padding-top : 10px;
-    padding-left: 20px;
+#post_links a{
+    text-decoration: none;
+    font-size: 13px;
 }
 
-th.body{
-    padding-top: 10px;
-    padding-left: 100px;
+#post_links a:hover{
+    background-color: white;
+    color: black;
 }
 
-.id{
-    padding-top: 10px;
-    padding-left: 20px;
+#new_post_link a:hover{
+    background-color: white;
+    color: black;
 }
-
-.position_relative{
+#new_post_link a{
+    text-decoration: none;
+    right: 10;
+    font-size: 20px;
+}
+.heading_position_relative{
     position: relative;
 }
 
-.position_absolute{
+.position_new_post_absolute{
     position: absolute;
+    right: 15px;
 }

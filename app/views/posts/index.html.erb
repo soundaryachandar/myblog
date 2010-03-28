@@ -1,26 +1,26 @@
-<div id="heading">
+<div id="heading" class="heading_position_relative">
      Listing posts
+     <div id="new_post_link" class="position_new_post_absolute"><%= link_to 'New post', new_post_path %></div>
 </div>
-
-<table class="posts_index">
-  <tr>
-    <th class="title","position_relative">Title</th>
-    <th class="body","position_relative">Body</th>
-  </tr>
-
+<div id="posts">
 <% @posts.each do |post| %>
-  <tr class="<%= post.id %>","position_absolute">
-    <td><%=h post.title %></td>
-    <td><%=h post.body %></td>
-    <td><%= link_to 'Show', post, :class => "show_posts_link" %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <div id="<%= post.id %>" class="position_relative post">
+    <div id="post_title"> <%=h post.title %> </div>
+    <div id="post_links" class="position_absolute">
+      <%= link_to 'Edit', edit_post_path(post) %>
+      <%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %>
+    </div>
+    <br />
+    <div class="post_body">
+      <%=h truncate(post.body,500) %>
+      <%= link_to 'Read More',post, :class => "show_posts_link" %>
+    </div>
+  </div>
 <% end %>
-</table>
+</div>
 <div id="post"></div>
 <br />
 
-<%= link_to 'New post', new_post_path %>
+
 
 

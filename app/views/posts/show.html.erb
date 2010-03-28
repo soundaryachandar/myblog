@@ -1,0 +1,41 @@
+<p>
+  <b>Title:</b>
+  <%=h @post.title %>
+
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @post.body %>
+</p>
+
+<h2>Comments</h2>
+
+<% @post.comments.each do |c| %>
+  <p>
+    <b><%=h c.author %> said:</b><br />
+    <%= time_ago_in_words(c.created_at) %> ago
+  </p>
+
+  <p>
+    <%=h c.body %>
+  </p>
+<% end %>
+
+<% form_for [@post, Comment.new] do |f| %>
+  <p>
+
+    <%= f.label :author, "Author" %><br />
+    <%= f.text_field :author %><br />
+    <%= f.label :body, "Comment Description" %><br />
+    <%= f.text_area :body %>
+  </p>
+
+  <p>
+    <%= f.submit "Add Comment" %>
+  </p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

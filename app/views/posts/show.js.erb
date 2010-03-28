@@ -1,3 +1,4 @@
-$(".post_index").html("");
-$("#post").html("<%= escape_javascript(render :partial =>
+$(".post").hide();
+$("#<%= @post.id %> .post_body").html("<%= escape_javascript(render :partial =>
 'show') %>");
+$("#<%= @post.id %>.post").slideDown(1000);
