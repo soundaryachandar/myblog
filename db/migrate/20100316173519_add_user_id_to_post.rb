@@ -1,7 +1,7 @@
 class AddUserIdToPost < ActiveRecord::Migration
   def self.up
     add_column :posts, :user_id , :integer
-    remove_column :posts, :blogger_id, :integer
+    remove_column :posts, :blogger_id
   end
 
   def self.down
