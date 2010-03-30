@@ -14,18 +14,13 @@
   
   <% @post.comments.each do |c| %>
   <p>
-    <div class = "name">
+    <div class = "comment">
       <b><%=h c.name %> said:</b><br />
-      <div class = "time">
 	<%= time_ago_in_words(c.created_at) %> ago
-      </div>
-    </div>
   </p>
 
   <p>
-    <div class ="comment_body">
       <%=h c.body %>
-    </div>
   </p>
   <% end %>
 </div>

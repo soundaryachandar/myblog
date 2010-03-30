@@ -8,20 +8,22 @@
   <b>Body:</b>
   <%=h @post.body %>
 </p>
-
+<div class="comment_list">
 <h2>Comments</h2>
 
 <% @post.comments.each do |c| %>
   <p>
-    <b><%=h c.author %> said:</b><br />
-    <%= time_ago_in_words(c.created_at) %> ago
+    <div class="comment">
+      <b><%=h c.author %> said:</b><br />
+      <%= time_ago_in_words(c.created_at) %> ago
   </p>
 
-  <p>
-    <%=h c.body %>
-  </p>
+<p>
+  <%=h c.body %>
+</p>
+  </div>
 <% end %>
-
+</div>
 <% form_for [@post, Comment.new] do |f| %>
   <p>
 
@@ -32,7 +34,9 @@
   </p>
 
   <p>
+    <div id="add_comment_link">
     <%= f.submit "Add Comment" %>
+   </div>
   </p>
 <% end %>
 

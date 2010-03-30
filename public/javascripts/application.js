@@ -13,5 +13,16 @@
 	});
     });
 })(jQuery);
+(function($){
+    jQuery.ajaxSetup({
+	'beforeSend' : function(xhr) {xhr.setRequestHeader("Accept","text/javascript")}
+    });
+    $(document).ready(function(){
+	$("a.add_comment_link").click(function(){
+	    $.post($(this).attr("href"), null, null, "script");
+	    return false;   //avoids redirect
+	});
+    });
+})(jQuery);
 
 
