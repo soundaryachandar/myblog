@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20100316173519) do
     t.text     "title"
     t.text     "body"
     t.string   "author"
-    t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"

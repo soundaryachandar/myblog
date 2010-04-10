@@ -1,1 +1,6 @@
-alert("works??");
+<% if @comment.save -%>
+$("#comment_list").append("<%= escape_javascript(render :partial => @comment) %>");
+$("#new_comment")[0].reset();
+<% else -%>
+  alert("Comment title or body cannot be empty!");
+<% end -%>

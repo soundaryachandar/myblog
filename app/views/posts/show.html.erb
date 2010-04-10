@@ -13,15 +13,8 @@
 
 <% @post.comments.each do |c| %>
   <p>
-    <div class="comment">
-      <b><%=h c.author %> said:</b><br />
-      <%= time_ago_in_words(c.created_at) %> ago
+    <%= render :partial => c %>
   </p>
-
-<p>
-  <%=h c.body %>
-</p>
-  </div>
 <% end %>
 </div>
 <% form_for [@post, Comment.new] do |f| %>

@@ -19,7 +19,7 @@
     });
     $(document).ready(function(){
 	$("#new_comment").submit(function(){
-	    $.post($(this).attr("action"), null, null, "script");
+		$.post($(this).attr("action"), $(this).serialize(), null, "script");
 	    return false;   //avoids redirect
 	});
     });
