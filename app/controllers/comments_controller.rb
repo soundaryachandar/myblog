@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
      if @comment.save
        flash[:notice] = "Comment saved"
        format.html { redirect_to post_path(@post) }
-     
+       format.js
      else
        flash[:notice] = "Comment NOT saved"
         format.html{ redirect_to post_path(@post)}
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
    @post = Post.find(params[:post_id])
    respond_to do |format|
      format.html{ redirect_to post_path(@post)}
-     format.js { render :nothing => false }
+
    end
  end
 end
