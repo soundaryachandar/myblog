@@ -31,12 +31,30 @@
 	'beforeSend' : function(xhr) {xhr.setRequestHeader("Accept","text/javascript")}
     });
     $(document).ready(function(){
+	$("a.new_post_link").click(function(){
+		$.get($(this).attr("href"), null, null, "script");
+	    return false;   //avoids redirect
+	});
+    });
+})(jQuery);
+
+(function($){
+    jQuery.ajaxSetup({
+	'beforeSend' : function(xhr) {xhr.setRequestHeader("Accept","text/javascript")}
+    });
+    $(document).ready(function(){
 	$("#new_post").submit(function(){
 		$.post($(this).attr("action"), $(this).serialize(), null, "script");
 	    return false;   //avoids redirect
 	});
     });
 })(jQuery);
+
+
+
+
+
+
 
 
 

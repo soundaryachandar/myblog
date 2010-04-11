@@ -9,6 +9,9 @@ class PostsController < ApplicationController
   
   def new
     @post = Post.new
+    respond_to do |format|
+      format.js { render :nothing => false }
+    end
   end
 
   def show
@@ -54,5 +57,5 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to '/posts'
-  end 
+  end
 end
