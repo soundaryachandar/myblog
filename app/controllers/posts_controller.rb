@@ -37,12 +37,16 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(params[:post]) 
     @post.user_id = current_user.id
-    if @post.save
-      flash[:notice] = "Saved your post!"
-      redirect_to posts_path
-     else
-      flash[:notice] = "Post could not be saved"
-      render :action  => 'new'
+    respond_to do |format|
+      if @post.save
+        flash[:notice] = "Saved your post!"
+        format.html { redirect_to posts_path }
+        format.js { render :nothing => false }
+      else
+        flash[:notice] = "Post could not be saved"
+        format.html { render :action  => 'new' }
+        format.js { render :nothing => false }
+      end
     end
   end
 

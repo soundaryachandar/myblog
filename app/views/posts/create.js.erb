@@ -1,0 +1,4 @@
+$("#new_post").hide();
+$("#<%= @post.id %> .post").html("<%= escape_javascript(render :partial => 'show') %>");
+$("#<%= @post.id %>.post").slideDown(1000);
+
