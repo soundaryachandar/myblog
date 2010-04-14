@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   
   has_many :posts
 
+  has_attached_file :photo, :url => "/images/users/:id/:style/:basename.:extension", :path => ":rails_root/public/images/users/:id/:style/:basename.:extension" 
+
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login

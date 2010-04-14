@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100316173519) do
+ActiveRecord::Schema.define(:version => 20100414171915) do
 
   create_table "bloggers", :force => true do |t|
     t.string   "login"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20100316173519) do
     t.text     "title"
     t.text     "body"
     t.string   "author"
+    t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -61,6 +62,10 @@ ActiveRecord::Schema.define(:version => 20100316173519) do
     t.string   "state",                                    :default => "passive"
     t.datetime "deleted_at"
     t.string   "password_reset_code",       :limit => 40
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

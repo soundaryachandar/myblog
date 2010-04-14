@@ -1,6 +1,6 @@
 <h1>Editing profile</h1>
 <h2> Please enter your current password before editing </h2>
-<% form_for @user, users_path(@user), :method => :put do |f| %>
+<% form_for (@user, users_path(@user), :html => { :multipart => true }, :method => :put) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -27,6 +27,11 @@
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </p>
+  
+  <p>
+    <%= f.file_field :photo %>
+  </p>
+
   <p>
     <%= f.submit 'Update' %>
   </p>

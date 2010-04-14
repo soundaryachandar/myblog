@@ -1,11 +1,14 @@
 <h1> Profile </h1>
 
+<%= image_tag current_user.photo.url  %>
+
 <p>Name:
   <%= current_user.name  %>
 </p>
 <p>Email:
   <%= current_user.email  %>
 </p>
+
 <p>
   <%= link_to 'Edit your profile' ,edit_profile_path %>
 </p>
