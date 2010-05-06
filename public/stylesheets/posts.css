@@ -20,11 +20,11 @@
     color: black;
 }
 
-#new_post_link a:hover{
+a:hover.new_post_link{
     background-color: white;
     color: black;
 }
-#new_post_link a{
+a.new_post_link{
     text-decoration: none;
     right: 10;
     font-size: 20px;

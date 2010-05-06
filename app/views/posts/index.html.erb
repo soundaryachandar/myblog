@@ -1,26 +1,36 @@
 
 <div id="all_posts">
-<div id="heading" class="heading_position_relative">
-     Listing posts
-     <div class="position_new_post_absolute"><%= link_to 'New post' , new_post_path, :class => "new_post_link" %></div>
-</div>
-<div id="posts">
-<% @posts.each do |post| %>
-  <div id="<%= post.id %>" class="position_relative post">
-    <div id="post_title"> <%=h post.title %> </div>
-    <div id="post_links" class="position_absolute">
-      <%= link_to 'Edit', edit_post_path(post) %>
-      <%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %>
-    </div>
-    <br />
-    <div class="post_body">
-      <%=h truncate(post.body,500) %>
-      <%= link_to 'Read More',post, :class => "show_posts_link" %>
-    </div>
+  <div id="heading" class="heading_position_relative">
+    Listing posts
+    <div class="position_new_post_absolute"><%= link_to 'New post' , new_post_path, :class => "new_post_link" %></div>
   </div>
-<% end %>
-</div>
-<div id="post"></div>
+  <div id="posts">
+    <% @posts.each do |post| %>
+    <div id="<%= post.id %>" class="position_relative post">
+      <div id="post_title"> <%=h post.title %> </div>
+      <div class="stars_wrapper" id="rating_post_#{post.id}">
+	
+	<% (1..5).each do |rating| %>
+	<% if post.rating == rating %>
+	<%= radio_button_tag "rating", true, :value => rating, :class => 'star' %>
+	<% else %>
+	<%= radio_button_tag "rating", false, :value => rating, :class => 'star' %>
+	<% end %>
+	<% end -%>
+      </div>
+      <div id="post_links" class="position_absolute">
+	<%= link_to 'Edit', edit_post_path(post) %>
+	<%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+      <br />
+      <div class="post_body">
+	<%=h truncate(post.body,500) %>
+	<%= link_to 'Read More',post, :class => "show_posts_link" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div id="post"></div>
 <br />
 </div>
 

@@ -7,8 +7,10 @@ class RatingsController < ApplicationController
         @rating.reload
         @post = @rating.post
         format.html { redirect_to @post}
+        format.js { render :nothing => false}
       else
         format.html { redirect_to @post}
+        format.js { render :nothing => false}
       end
     end
   end

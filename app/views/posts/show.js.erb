@@ -1,7 +1,10 @@
 $(".post").hide();
-$("#<%= @post.id %> .post_body").html("<%= escape_javascript(render :partial =>
-'show') %>");
-$("#<%= @post.id %>.post").slideDown(1000);
+$("#post").hide();
+$("#post").html("<%= escape_javascript(render :partial => 'show') %>");
+$("#post #post_title").append("<%= escape_javascript(render :partial => 'posts/rating', :locals => {:post => @post}) %>");
+$("#post").slideDown(1000);
+
+
 
 
 
