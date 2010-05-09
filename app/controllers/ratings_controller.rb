@@ -1,16 +1,15 @@
 class RatingsController < ApplicationController
   def create
-    @rating = Rating.new(params[:rating])
+    @post = Post.find(params[:post_id])
     respond_to do |format|
-     
+      @rating = Rating.new(params[:rating])
+      @post.rating = @rating
       if @rating.save
-        @rating.reload
-        @post = @rating.post
-        format.html { redirect_to @post}
-        format.js { render :nothing => false}
+        format.js { render :nothing => false }
+        format.html { redirect_to @post  }
       else
-        format.html { redirect_to @post}
-        format.js { render :nothing => false}
+        format.js { render :nothing => false }
+        format.html { redirect_to @post }
       end
     end
   end
