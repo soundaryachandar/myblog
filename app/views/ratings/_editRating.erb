@@ -1,0 +1,7 @@
+ <% (1..5).each do |rating| %>
+	<% if @post.rating == rating %>
+	<%= radio_button_tag "rating", rating, true, :class => 'star' %>
+	<% else %>
+	<%= radio_button_tag "rating", rating, false, :class => 'star' %>
+	<% end %>
+	<% end -%>

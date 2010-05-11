@@ -8,5 +8,6 @@
 	<%= radio_button_tag "rating", rating, false, :class => 'star' %>
 	<% end %>
 	<% end -%>
+	<input type="hidden"  name="post_id" value="<%= post.id  %>" />
 </div>
 <% end -%>

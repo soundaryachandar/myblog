@@ -1,0 +1,8 @@
+<% (1..5).each do |rating| %>
+<% if post.rating.no_of_stars > 0 %>
+<%= radio_button_tag "rating",post.rating.no_of_stars,true,:class =>'star',:disabled => true %>
+<% else %>
+<%= render :partial => 'editRating' %>
+<% end %>
+<% end -%>
+
