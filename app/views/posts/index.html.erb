@@ -8,15 +8,8 @@
     <% @posts.each do |post| %>
     <div id="<%= post.id %>" class="position_relative post">
       <div id="post_title"> <%=h post.title %> </div>
-      <div class="stars_wrapper" id="rating_post_#{post.id}">
-	
-	<% (1..5).each do |rating| %>
-	<% if post.rating == rating %>
-	<%= radio_button_tag "rating", true, :value => rating, :class => 'star' %>
-	<% else %>
-	<%= radio_button_tag "rating", false, :value => rating, :class => 'star' %>
-	<% end %>
-	<% end -%>
+      <div class="stars_wrapper" id="rating_post_#{post.id}">	
+        <%= render :partial => 'ratings/rating', :locals => { :post => post } %>
       </div>
       <div id="post_links" class="position_absolute">
 	<%= link_to 'Edit', edit_post_path(post) %>

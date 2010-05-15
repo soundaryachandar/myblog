@@ -28,11 +28,10 @@
 
 	$(".stars_wrapper").stars({
 	    disabled: true,
-
-	    });
+	});
 
 	$.bindRatingsToPost = function(){
-	    $(".editable_rating").stars();
+	  $(".editable_rating").stars();
 	};
 
 	$(".ui-stars-star").live('click',function(){

@@ -1,0 +1,9 @@
+<% form_tag '' do -%>
+<% (1..5).each do |rating| %>
+  <% if post.rating && (post.rating.no_of_stars == rating) %>
+   <%= radio_button_tag "rating",rating,true %>
+  <% else %>
+   <%= radio_button_tag "rating", rating, false %>
+  <% end %>
+<% end -%>
+<% end -%>
