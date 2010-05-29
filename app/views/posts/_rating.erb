@@ -2,12 +2,12 @@
 <div id="post_rating_<%= post.id %>" class="editable_rating">
  
   <% (1..5).each do |rating| %>
-	<% if post.rating == rating %>
+    <% if post.average_rating.to_i == rating %>
 	<%= f.radio_button "no_of_stars", rating, :value => true, :class => 'star' %>
 	<% else %>
 	<%= f.radio_button "no_of_stars", rating, :value => false, :class => 'star' %>
 	<% end %>
-	<% end -%>
-	<input type="hidden"  name="post_id" value="<%= post.id  %>" />
+    <% end -%>
+    <%= hidden_field_tag "rating[post_id]", post.id %>
 </div>
 <% end -%>

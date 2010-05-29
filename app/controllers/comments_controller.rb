@@ -11,8 +11,9 @@ class CommentsController < ApplicationController
        format.js{ render :nothing => false }
      else
        flash[:notice] = "Comment NOT saved"
-       format.js{ render :nothing => false }
        format.html{ redirect_to post_path(@post)}
+       format.js{ render :nothing => false }
+
      end    
    end
  end

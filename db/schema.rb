@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100414171915) do
+ActiveRecord::Schema.define(:version => 20100529103821) do
 
   create_table "bloggers", :force => true do |t|
     t.string   "login"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(:version => 20100414171915) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.float    "average_rating", :default => 0.0
+    t.integer  "no_of_ratings",  :default => 0
   end
 
   create_table "ratings", :force => true do |t|

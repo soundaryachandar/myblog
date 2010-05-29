@@ -5,8 +5,8 @@ describe Rating do
     @post = create_new_post
     @valid_attributes = {
       :no_of_stars => 1,
-      :post_id => @post.id
-    }
+      :post_id => @post.id,
+     }
   end
 
   it "should create a new rating given valid attributes" do
@@ -29,10 +29,36 @@ describe Rating do
       @rating = create_rating()
       @rating.post.should == @post
   end 
-  private  
-  def create_rating( options = { })
+
+  it "should keep a track of the number of ratings" do
+    lambda do
+    @rating = create_rating()
+    end
+  end 
+
+  it "should calculate the average rating when it is the first rating" do
+    @rating = create_rating(:no_of_stars => 3)
+    @post.reload
+    @post.average_rating.should == 3
+  end 
+  
+  it "should calculate the average rating when average rating already exists" do 
+    (1..3).each do |i|
+      create_rating(:no_of_stars => i)
+    end
+    @post.reload
+    @post.average_rating.should == 2.0
+  end 
+
+  it "should increase the number of ratings count for the post" do 
+    lambda{ create_rating; @post.reload}.should change(@post, :no_of_ratings).by(1)
+  end
+
+end
+private  
+def create_rating( options = { })
     rating = Rating.new(@valid_attributes.merge(options))
     rating.save
     rating
-  end
 end
+

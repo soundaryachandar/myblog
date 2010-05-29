@@ -38,6 +38,11 @@ describe Post do
     @post = create_post
     @post.comments.should == []
   end
+
+  it "should have many ratings" do
+    @post = create_post
+    @post.ratings.should == []
+  end 
 end
 def create_post(options = { })
  @valid_attributes = { :title => "some title",
