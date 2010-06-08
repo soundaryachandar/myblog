@@ -16,6 +16,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @user = current_user
+    @rating = Rating.find_by_user_id_and_post_id(current_user.id,@post.id)
     respond_to do |format|   
       format.html
       format.js{ render :nothing => false }

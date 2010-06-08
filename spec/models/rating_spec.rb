@@ -54,6 +54,21 @@ describe Rating do
     lambda{ create_rating; @post.reload}.should change(@post, :no_of_ratings).by(1)
   end
 
+  it "should have a user_id if rated" do
+      @rating  = create_rating(:user_id => 1,:no_of_stars => 3)
+      @rating.user_id.should_not be_nil
+  end 
+
+  it "should have a nil user id, if not rated" do
+    @rating = create_rating(:no_of_stars => nil)
+    @rating.user_id.should be_nil
+  end 
+
+  it "should flash an notification message,if not rated" do
+    create_rating(:no_of_stars => nil)
+    flash[:notice].should_not be_nil
+  end 
+
 end
 private  
 def create_rating( options = { })

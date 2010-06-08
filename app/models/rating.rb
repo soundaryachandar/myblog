@@ -16,6 +16,4 @@ class Rating < ActiveRecord::Base
     post.no_of_ratings += 1
     post.save!
   end
-
-
 end

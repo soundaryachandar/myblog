@@ -5,6 +5,8 @@ def create
       @rating = Rating.new(params[:rating])  
       if @rating.save
         @post = @rating.post
+        @rating.user_id = current_user.id
+        current_user.no_of_stars = @rating.no_of_stars
         format.js { render :nothing => false }
         #format.html { redirect_to @post  }
       else
@@ -13,11 +15,4 @@ def create
       end
     end
   end
-
-def calculate_average_rating(avg_current_rating,no_of_ratings,no_of_stars)
-  numerator = no_of_stars+(avg_current_rating)*no_of_ratings
-  new_average_rating = numerator/no_of_ratings
-  return new_average_rating
-end
-
 end

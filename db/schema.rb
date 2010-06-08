@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100529103821) do
+ActiveRecord::Schema.define(:version => 20100531182113) do
 
   create_table "bloggers", :force => true do |t|
     t.string   "login"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20100529103821) do
     t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20100529103821) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "no_of_stars"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

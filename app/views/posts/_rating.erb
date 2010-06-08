@@ -1,13 +1,15 @@
 <% form_for :rating, :url => ratings_path, :method => :post, :html => {:id => "rate_post_form"} do |f| %>
 <div id="post_rating_<%= post.id %>" class="editable_rating">
- 
+
   <% (1..5).each do |rating| %>
-    <% if post.average_rating.to_i == rating %>
-	<%= f.radio_button "no_of_stars", rating, :value => true, :class => 'star' %>
-	<% else %>
-	<%= f.radio_button "no_of_stars", rating, :value => false, :class => 'star' %>
-	<% end %>
-    <% end -%>
-    <%= hidden_field_tag "rating[post_id]", post.id %>
+    <% if post.average_rating.to_i == rating %> 
+       <%= f.radio_button "no_of_stars", rating, :value => true, :class => 'star' %>
+    <% else %> 
+       <%= f.radio_button "no_of_stars", rating, :value => false, :class => 'star' %>
+    <% end %>
+
+  <% end %>
+     <%= hidden_field_tag  "rating[post_id]", post.id %> 
+     <%= hidden_field_tag "rating[user_id]",current_user.id %>
 </div>
 <% end -%>
