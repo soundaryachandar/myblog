@@ -2,8 +2,13 @@
 $(".post").hide();
 $("#post").hide();
 $("#post").html("<%= escape_javascript(render :partial => 'show') %>");
-
+<% if @rating.nil?  %>
 $("#post #post_title").append("<%= escape_javascript(render :partial => 'posts/rating', :locals => {:post => @post,:user => current_user,:rating => @rating}) %>");
+<% else  %>
+<%= @post.id %>
+$("#post #post_title").append("<%= escape_javascript(render :partial => 'posts/rating', :locals => {:post => @post,:user => current_user,:rating => @rating,:disabled=> true}) %>");
+$("#rating_post_<%= @post.id %>").stars({disabled:true});
+<% end  %>
 $("#post").slideDown(1000);
 
 

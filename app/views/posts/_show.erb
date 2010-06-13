@@ -12,6 +12,13 @@
   <%=h @post.body %>
 </p>
 
+<p>
+  <b>Tags:</b>
+  <% @tags.each do |tag| %>
+     <%= link_to tag.name %>
+  <% end  %>
+</p
+
 <h2>Comments</h2>
 
 <% @post.comments.each do |c| %>

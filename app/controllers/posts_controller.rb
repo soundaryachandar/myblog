@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @user = current_user
     @rating = Rating.find_by_user_id_and_post_id(current_user.id,@post.id)
+    @tags = post_tag_list_by_user(@post)
     respond_to do |format|   
       format.html
       format.js{ render :nothing => false }
@@ -41,7 +42,8 @@ class PostsController < ApplicationController
   
   def create
     @post = Post.new(params[:post]) 
-    @post.user_id = current_user.id
+    @user = User.find_by_id(@post.user_id)
+    @user.tag(@post,:with => @post.tag_list,:on => :tags)
     respond_to do |format|
       if @post.save
         flash[:notice] = "Saved your post!"
@@ -59,5 +61,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to '/posts'
+  end
+
+  def post_tag_list_by_user(post)
+    user = User.find_by_id(post.user_id)
+    post.tags_from(user)   #returns a list of tags
   end
 end

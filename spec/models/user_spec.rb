@@ -305,6 +305,17 @@ describe User do
       @user.password_reset_code.should be_nil
     end 
   end 
+
+describe "post taggings"do
+    before do
+      @user = create_user
+      @post = Post.new(:title => "test",:body => "test")
+    end
+    it "should allow the user to retrieve the tags by the user" do
+      @user.tag(@post,:with => "test tags",:on => :posttags)
+      @user.owned_tags.should_not == []
+  end 
+end
 protected
   def create_user(options = {})
     record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))

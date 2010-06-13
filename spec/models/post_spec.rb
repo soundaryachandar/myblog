@@ -43,6 +43,17 @@ describe Post do
     @post = create_post
     @post.ratings.should == []
   end 
+
+  it "should have a list of tags,if tagged" do
+    @post = create_post
+    @post.tag_list = "life,me"
+    @post.tag_list.should_not == []
+  end 
+
+  it "should not have any tags,if not tagged" do
+    @post = create_post
+    @post.tag_list.should == []
+  end 
 end
 def create_post(options = { })
  @valid_attributes = { :title => "some title",

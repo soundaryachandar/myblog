@@ -63,12 +63,6 @@ describe Rating do
     @rating = create_rating(:no_of_stars => nil)
     @rating.user_id.should be_nil
   end 
-
-  it "should flash an notification message,if not rated" do
-    create_rating(:no_of_stars => nil)
-    flash[:notice].should_not be_nil
-  end 
-
 end
 private  
 def create_rating( options = { })
