@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @user = current_user
     @rating = Rating.find_by_user_id_and_post_id(current_user.id,@post.id)
-    @tags = post_tag_list_by_user(@post)
+    @tags = @post.tags_from(@user)
     respond_to do |format|   
       format.html
       format.js{ render :nothing => false }
@@ -42,6 +42,7 @@ class PostsController < ApplicationController
   
   def create
     @post = Post.new(params[:post]) 
+    @post.user_id = current_user.id
     @user = User.find_by_id(@post.user_id)
     @user.tag(@post,:with => @post.tag_list,:on => :tags)
     respond_to do |format|
@@ -63,8 +64,13 @@ class PostsController < ApplicationController
     redirect_to '/posts'
   end
 
-  def post_tag_list_by_user(post)
-    user = User.find_by_id(post.user_id)
-    post.tags_from(user)   #returns a list of tags
+  def post_tag_list_by_user(user_id)
+    @user = User.find_by_id(user_id)
+
+    puts "USER"+user
+    puts "USER"+user
+    puts "USER"+user
+    puts "USER"+user
+    post.tags_from(@user)   #returns a list of tags
   end
 end

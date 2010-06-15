@@ -58,7 +58,7 @@ describe "GET /show" do
     end
     it "should find the tags for the post by the current user" do
       do_get
-      lamba do
+      lambda do
         @post.tags = "test,test123"
       end.should_not be_nil
     end 
@@ -96,6 +96,8 @@ describe "POST /posts" do
           do_post
       end.should change(Post,:count).by(1)
       end
+
+    
       it "should add the tags by the author of the post" do
           lambda do
             @post = create_new_post
