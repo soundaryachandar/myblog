@@ -58,7 +58,7 @@ Spec::Runner.configure do |config|
   include UserSpecHelper
 
   def create_new_post
-    post = Post.create!(:title => 'new title', :body => 'new post',:tag_list => "test")
+    post = Post.create!(:title => 'new title', :body => 'new post')
     post
   end
 end

@@ -11,12 +11,9 @@
     <%= f.label :body %><br />
     <%= f.text_area :body %>
   </p>
-
   <p>
-    <%= f.label :posttags %><br />
-    <%= f.text_area :post_tag_list_by_user %>
-  </p>
-
+    <%= render :partial => 'tags/edit_tags',:locals => {:post => @post} %>
+  <p>
   
   <p>
     <%= f.submit 'Update' %>

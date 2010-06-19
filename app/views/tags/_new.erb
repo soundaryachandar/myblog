@@ -1,0 +1,7 @@
+<div id="new_tags" style="border: 1px solid black;">
+Add Tags:<br />
+<%= text_field_tag :tags, nil, :id => "tag_to_add" %><br />
+<%= submit_tag 'Add Tag', :id => "add_tag_button" %>
+<%= hidden_field_tag :tag_list, '', :id => "tag_list" %>
+<div id="added_tags"></div>
+</div>

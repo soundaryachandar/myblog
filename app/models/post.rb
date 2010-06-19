@@ -5,5 +5,9 @@ class Post < ActiveRecord::Base
   validates_presence_of :body
   has_many :ratings  
   acts_as_taggable
-  acts_as_taggable_on :posttags
+  
+  def add_tags_through_string(string)
+    self.tag_list.add(string.split(',')) if string
+  end
+
   end

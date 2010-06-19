@@ -8,8 +8,6 @@ class User < ActiveRecord::Base
   
   has_many :posts
 
-  acts_as_tagger
-
   has_attached_file :photo, :url => "/images/users/:id/:style/:basename.:extension", :path => ":rails_root/public/images/users/:id/:style/:basename.:extension" 
 
   validates_presence_of     :login

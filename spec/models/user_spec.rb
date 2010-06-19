@@ -308,6 +308,7 @@ describe User do
 
 describe "post taggings"do
     before do
+      pending
       @user = create_user
       @post = Post.new(:title => "test",:body => "test")
     end
