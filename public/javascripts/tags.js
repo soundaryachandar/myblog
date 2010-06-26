@@ -1,14 +1,17 @@
 (function($){
     $(document).ready(function(){
 	$("#add_tag_button").live("click", function(){
-	    var tag = $("#tag_to_add").val();
-	    if( tag != ""){
+	    var prospective_tags = $("#tag_to_add").val();
+	  if( prospective_tags != ""){
+            tags = prospective_tags.split(',');
+            $.each(tags,function(index, tag){             
 		$("#added_tags").append("<span class='prospective_tag'><a href='#add_tag_button' class='tag_delete'>x</a><span class='tag'>" + tag + "</span>&nbsp;</span>");
 		tag_list_val = $("#tag_list").val();
 		new_tag_list_val = tag_list_val + tag + ',';
 		$("#tag_list").val(new_tag_list_val);
 		$("#tag_to_add").val('');		
-		return false;
+              });
+            return false;
 	    }
 	});
 	
