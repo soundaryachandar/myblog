@@ -39,7 +39,18 @@
 	    return false;
 	});
 
-	
+	$("a.delete").live('click',function(event){
+	    if( confirm("are you sure you want to delete this post?"))
+		$.ajax({
+		    url: this.href.replace('/delete',''),
+		    type: 'post',
+		    dataType: 'script',
+		    success: function(){
+			alert("deleted");
+		    }
+		});
+	    return false;
+	});
     });
 })(jQuery);
 

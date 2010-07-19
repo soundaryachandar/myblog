@@ -1,2 +1,13 @@
+
+<h2>Tags</h2>
 <%= render :partial => 'tags/new'  %>
+<% @post.tag_list.each do |tag| %>
+<span class=prospective_tag>
+  <a href=#add_tag_button class=tag_delete>X</a>
+	   <span class=tag>
+	     <%= tag %>
+	   </span>&nbsp;
+</span>
+<% end  %>
+
 

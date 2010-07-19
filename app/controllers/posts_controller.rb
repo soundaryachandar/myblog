@@ -32,6 +32,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update_attributes(params[:post])
+      @post.add_tags_through_string(params[:tag_list])
       flash[:notice] = "Successfully edited"
       redirect_to @post
     else
@@ -59,6 +60,10 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to '/posts'
+    #redirect_to '/posts'
+    respond_to do |format|
+      format.html {  redirect_to posts_path }
+      format.js { render :nothing => true}
+    end
   end
 end

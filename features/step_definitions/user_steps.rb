@@ -90,12 +90,13 @@ end
 #
 
 def log_out
-  get '/sessions/destroy'
+ # get '/sessions/destroy'
+get '/logout'
 end
 
 def log_out!
   log_out
-  response.should redirect_to('/')
+  response.should redirect_to('/sessions/new')
   follow_redirect!
 end
 

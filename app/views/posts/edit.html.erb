@@ -10,11 +10,12 @@
   <p>
     <%= f.label :body %><br />
     <%= f.text_area :body %>
-  </p>
+  </p>x
+
   <p>
     <%= render :partial => 'tags/edit_tags',:locals => {:post => @post} %>
   <p>
-  
+
   <p>
     <%= f.submit 'Update' %>
   </p>
